@@ -38,6 +38,34 @@ nav a:hover {
     border-bottom: 0.4em solid var(--color-accent); /* Accent color for hover */
     background-color: oklch(from var(--color-accent) 95% 5% h); /* Light background with the same hue */
 }
+form{
+    width: 100%;
+
+
+}
+form label{
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+form input{
+
+    width: 100%;
+    padding: 0.5em;
+    box-sizing: border-box;
+}
+form textarea{
+
+    width: 100%;
+    padding: 0.5em;
+    box-sizing: border-box;
+}
+form button{
+
+    color: white;
+    background-color: aquamarine;
+
+}
 body {
     /* Set line height to 1.5 times the font size
          and use the OS’s UI font as the website font
