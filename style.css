@@ -5,7 +5,7 @@ body {
     font: 100%/1.5 system-ui;
     display: block;
     margin: 8px;
-    margin-inline: max(1em, (100% - 80ch) / 2);
+    margin-inline: max(1em, (100% - 120ch) / 2);
 
 
   }
