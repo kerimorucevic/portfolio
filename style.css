@@ -44,9 +44,12 @@ form{
 
 }
 form label{
-    display: block;
+    display: grid;
     margin-top: 1em;
     margin-bottom: 0.5em;
+    grid-template-columns: subgrid;
+    align-self: center;
+
 }
 form input{
 
@@ -63,9 +66,10 @@ form textarea{
 form button{
 
     color: white;
-    background-color: var(--color-accent);
+    background-color: lightblue;
     border: 2px;
     width: 100%;
+    
 
 }
 body {
