@@ -1,42 +1,40 @@
 :root {
-    --color-accent: oklch(65% 50% 0); /* Define the accent color */
+    --color-accent: oklch(65% 50% 0); 
 }
 
-/* Apply the accent color globally */
+
 html {
-    accent-color: var(--color-accent); /* Use the accent color for form elements */
+    accent-color: var(--color-accent); 
 }
 
 nav ul, nav li {
-    display: contents; /* Removes default styling for lists */
+    display: contents; 
 }
 nav {
-    display: flex; /* Enables Flexbox */
-    justify-content: space-around; /* Evenly spaces links */
-    align-items: center; /* Centers items vertically */
-    margin-bottom: 1em; /* Adds spacing below the nav */
-    border-bottom: 1px solid oklch(80% 3% 200); /* Subtle bottom border */
-    padding-bottom: 0.5em; /* Adds padding below the links */
+    display: flex; 
+    justify-content: space-around; 
+    align-items: center; 
+    margin-bottom: 1em;
+    border-bottom: 1px solid oklch(80% 3% 200); 
+    padding-bottom: 0.5em; 
     background-color: oklch(from var(--color-accent) 95% 5% h)
 }
 
-/* Flexbox for <a> links */
 nav a {
-    flex: 1; /* Makes all links take up equal space */
-    text-decoration: none; /* Removes underline */
-    color: inherit; /* Inherits text color from parent */
-    text-align: center; /* Centers text in each link */
-    padding: 0.5em; /* Adds spacing inside each link */
+    flex: 1; 
+    text-decoration: none;
+    color: inherit; 
+    text-align: center; 
+    padding: 0.5em; 
 }
 
-/* Step 2.3: Style for the current page link */
 nav a.current {
-    border-bottom: 0.4em solid oklch(90% 3% 200); /* Thicker bottom border */
-    padding-bottom: 0.1em; /* Reduces padding to counter border height */
+    border-bottom: 0.4em solid oklch(90% 3% 200);
+    padding-bottom: 0.1em;
 }
 nav a:hover {
-    border-bottom: 0.4em solid var(--color-accent); /* Accent color for hover */
-    background-color: oklch(from var(--color-accent) 95% 5% h); /* Light background with the same hue */
+    border-bottom: 0.4em solid var(--color-accent); 
+    background-color: oklch(from var(--color-accent) 95% 5% h);
 }
 form{
     width: 100%;
@@ -74,15 +72,19 @@ form button{
     
 
 }
+.projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15em, 1fr)); 
+    gap: 1em; 
+    padding: 1em; 
+}
 body {
-    /* Set line height to 1.5 times the font size
-         and use the OS’s UI font as the website font
-       */
+   
     font: 100%/1.5 system-ui;
     display: block;
     margin: 8px;
     margin-inline: max(1em, (100% - 100ch) / 2);
-    background-color: oklch(from var(--color-accent) 95% 5% h); /* Light background with the same hue */
+    background-color: oklch(from var(--color-accent) 95% 5% h); 
 
 
   }
