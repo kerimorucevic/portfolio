@@ -49,6 +49,7 @@ form label{
     margin-bottom: 0.5em;
     grid-template-columns: subgrid;
     align-self: center;
+    grid-column: 1 / -1;
 
 }
 form input{
