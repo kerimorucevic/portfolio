@@ -78,6 +78,14 @@ form button{
     gap: 1em; 
     padding: 1em; 
 }
+.projects article {
+    display: grid;
+    gap: 1em;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 1em;
+    background-color: #f9f9f9;
+}
 body {
    
     font: 100%/1.5 system-ui;
