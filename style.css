@@ -63,7 +63,9 @@ form textarea{
 form button{
 
     color: white;
-    background-color: aquamarine;
+    background-color: var(--color-accent);
+    border: 2px;
+    width: 100%;
 
 }
 body {
