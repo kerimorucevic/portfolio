@@ -73,12 +73,13 @@ form button{
 
 }
 .projects article {
-    display: grid;
+    display: block;
     gap: 1em;
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 1em;
     background-color: #f9f9f9;
+    visibility: visible;
 }
 body {
    
