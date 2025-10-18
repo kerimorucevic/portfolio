@@ -8,6 +8,7 @@ nav {
     margin-bottom: 1em; /* Adds spacing below the nav */
     border-bottom: 1px solid oklch(80% 3% 200); /* Subtle bottom border */
     padding-bottom: 0.5em; /* Adds padding below the links */
+    background-color: oklch(from var(--color-accent) 95% 5% h)
 }
 
 /* Flexbox for <a> links */
