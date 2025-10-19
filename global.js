@@ -53,7 +53,7 @@ a.classList.toggle(
     a.host === location.host && a.pathname === location.pathname,
 ); 
 (() => {
-    // --- Create the theme switch UI at the start of <body> ---
+    // Show Automatic (Dark/Light) based on current OS preference
     const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
     const autoLabel = `Automatic${prefersDark ? ' (Dark)' : ' (Light)'}`;
   
@@ -71,40 +71,43 @@ a.classList.toggle(
       `
     );
   
+    // ---- Step 4.4: Make it work (switch themes on change) ----
     const select = document.querySelector('label.color-scheme select');
   
-    // --- Apply a given scheme to <html> and update UI ---
+    // 1) Apply the current select value immediately so UI reflects the state
     const applyScheme = (scheme) => {
-      // Set inline style on <html> so it overrides CSS defaults
       document.documentElement.style.setProperty('color-scheme', scheme);
-  
-      // Update the select UI
-      if (select && select.value !== scheme) {
-        select.value = scheme;
-      }
+      if (select && select.value !== scheme) select.value = scheme;
     };
   
-    // --- Initialize from localStorage (or default to "light dark") ---
-    const saved = localStorage.getItem('colorScheme');
-    const initial = saved || 'light dark';
-    applyScheme(initial);
+    // Default to Automatic on first load
+    applyScheme('light dark');
   
-    // --- Listen for user changes and persist them ---
+    // 2) Update when the user changes the dropdown
     select?.addEventListener('input', (event) => {
       const value = event.target.value; // "light dark" | "light" | "dark"
-      applyScheme(value);
-      localStorage.setItem('colorScheme', value);
+      console.log('color scheme changed to', value); // sanity check
+      document.documentElement.style.setProperty('color-scheme', value);
     });
   
-    // OPTIONAL: If OS theme changes and user is on "Automatic", keep the label hint fresh
+    // (Nice touch) If OS theme flips and user is in Automatic, refresh the label text
     if (window.matchMedia) {
       const mq = window.matchMedia('(prefers-color-scheme: dark)');
       mq.addEventListener?.('change', (e) => {
-        if ((localStorage.getItem('colorScheme') || 'light dark') === 'light dark') {
-          // Update the "Automatic (Dark/Light)" label text dynamically
-          const opt = select.querySelector('option[value="light dark"]');
-          if (opt) opt.textContent = `Automatic${e.matches ? ' (Dark)' : ' (Light)'}`;
+        const opt = select?.querySelector('option[value="light dark"]');
+        if (opt && select?.value === 'light dark') {
+          opt.textContent = `Automatic${e.matches ? ' (Dark)' : ' (Light)'}`;
         }
       });
     }
   })();
+
+const saved = localStorage.getItem('colorScheme');
+applyScheme(saved || 'light dark');
+
+// Save on change
+select?.addEventListener('input', (e) => {
+  const value = e.target.value;
+  document.documentElement.style.setProperty('color-scheme', value);
+  localStorage.setItem('colorScheme', value);   // <— add this line
+});
