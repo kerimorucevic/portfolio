@@ -53,25 +53,39 @@ a.classList.toggle(
 const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
 const autoLabel = `Automatic${prefersDark ? ' (Dark)' : ' (Light)'}`;
   
-document.addEventListener('DOMContentLoaded', () => {
-    document.body.insertAdjacentHTML(
-      'afterbegin',
-      `
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1) Inject the dropdown on every page
+    const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+    const autoLabel = `Automatic${prefersDark ? ' (Dark)' : ' (Light)'}`;
+    document.body.insertAdjacentHTML('afterbegin', `
       <label class="color-scheme">
         Theme:
-        <select>
-          <option value="light dark">Automatic</option>
+        <select aria-label="Color scheme">
+          <option value="light dark">${autoLabel}</option>
           <option value="light">Light</option>
           <option value="dark">Dark</option>
         </select>
-      </label>`,
-      
-    );
-  });
-select.addEventListener('input', function (event) {
-    console.log('color scheme changed to', event.target.value);
-  });
+      </label>
+    `);
   
+    const select = document.querySelector('label.color-scheme select');
+  
+    // 2) Apply and persist site-wide
+    const apply = (scheme) => {
+      document.documentElement.style.setProperty('color-scheme', scheme);
+      if (select) select.value = scheme;
+    };
+  
+    const saved = localStorage.getItem('colorScheme') || 'light dark';
+    apply(saved);
+  
+    select?.addEventListener('input', (e) => {
+      const scheme = e.target.value;
+      apply(scheme);
+      localStorage.setItem('colorScheme', scheme);
+    });
+  });  
  /*   // ---- Step 4.4: Make it work (switch themes on change) ----
     const select = document.querySelector('label.color-scheme select');
   
