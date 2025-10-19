@@ -111,3 +111,14 @@ select?.addEventListener('input', (e) => {
   document.documentElement.style.setProperty('color-scheme', value);
   localStorage.setItem('colorScheme', value);   // <— add this line
 });
+
+
+const select = document.querySelector('label.color-scheme select');
+const apply = (v) => document.documentElement.style.setProperty('color-scheme', v);
+
+apply('light dark'); // default
+select?.addEventListener('input', e => apply(e.target.value));
+
+// Sanity check the element exists
+console.log('[theme.js] switch present?', !!document.querySelector('label.color-scheme'));
+
