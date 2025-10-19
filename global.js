@@ -52,89 +52,66 @@ a.classList.toggle(
 
 const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
 const autoLabel = `Automatic${prefersDark ? ' (Dark)' : ' (Light)'}`;
-  
-
-  document.addEventListener('DOMContentLoaded', () => {
-    // 1) Inject the dropdown on every page
-    const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
-    const autoLabel = `Automatic${prefersDark ? ' (Dark)' : ' (Light)'}`;
-    document.body.insertAdjacentHTML('afterbegin', `
-      <label class="color-scheme">
-        Theme:
-        <select aria-label="Color scheme">
-          <option value="light dark">${autoLabel}</option>
-          <option value="light">Light</option>
-          <option value="dark">Dark</option>
-        </select>
-      </label>
-    `);
-  
-    const select = document.querySelector('label.color-scheme select');
-  
-    // 2) Apply and persist site-wide
-    const apply = (scheme) => {
-      document.documentElement.style.setProperty('color-scheme', scheme);
-      if (select) select.value = scheme;
+document.addEventListener('DOMContentLoaded', () => {
+    // Helper: create the switcher only if it's missing
+    const ensureSwitcher = () => {
+      let select = document.querySelector('label.color-scheme select');
+      if (!select) {
+        const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+        const autoLabel = `Automatic${prefersDark ? ' (Dark)' : ' (Light)'}`;
+        document.body.insertAdjacentHTML(
+          'afterbegin',
+          `
+          <label class="color-scheme">
+            Theme:
+            <select aria-label="Color scheme">
+              <option value="light dark">${autoLabel}</option>
+              <option value="light">Light</option>
+              <option value="dark">Dark</option>
+            </select>
+          </label>
+          `
+        );
+        select = document.querySelector('label.color-scheme select');
+      } else {
+        // Page already has HTML — make sure the "Automatic" option reads correctly
+        const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+        const autoOpt = document.querySelector('label.color-scheme select option[value="light dark"]');
+        if (autoOpt) autoOpt.textContent = `Automatic${prefersDark ? ' (Dark)' : ' (Light)'}`;
+      }
+      return select;
     };
   
+    const selects = () => Array.from(document.querySelectorAll('label.color-scheme select'));
+    const apply = (scheme) => {
+      document.documentElement.style.setProperty('color-scheme', scheme);
+      // keep all switchers (if any) in sync
+      for (const s of selects()) if (s.value !== scheme) s.value = scheme;
+    };
+  
+    // 1) Ensure there is a switcher on the page (use existing or inject)
+    const select = ensureSwitcher();
+  
+    // 2) Initialize from storage (site-wide) or default to Automatic
     const saved = localStorage.getItem('colorScheme') || 'light dark';
     apply(saved);
   
+    // 3) Respond to user changes & persist
     select?.addEventListener('input', (e) => {
-      const scheme = e.target.value;
+      const scheme = e.target.value; // "light dark" | "light" | "dark"
       apply(scheme);
       localStorage.setItem('colorScheme', scheme);
     });
-  });  
- /*   // ---- Step 4.4: Make it work (switch themes on change) ----
-    const select = document.querySelector('label.color-scheme select');
   
-    // 1) Apply the current select value immediately so UI reflects the state
-    const applyScheme = (scheme) => {
-      document.documentElement.style.setProperty('color-scheme', scheme);
-      if (select && select.value !== scheme) select.value = scheme;
-    };
-  
-    // Default to Automatic on first load
-    applyScheme('light dark');
-  
-    // 2) Update when the user changes the dropdown
-    select?.addEventListener('input', (event) => {
-      const value = event.target.value; // "light dark" | "light" | "dark"
-      console.log('color scheme changed to', value); // sanity check
-      document.documentElement.style.setProperty('color-scheme', value);
-    });
-  
-    // (Nice touch) If OS theme flips and user is in Automatic, refresh the label text
+    // 4) Keep the "Automatic" label accurate if OS theme flips (nice-to-have)
     if (window.matchMedia) {
       const mq = window.matchMedia('(prefers-color-scheme: dark)');
       mq.addEventListener?.('change', (e) => {
-        const opt = select?.querySelector('option[value="light dark"]');
-        if (opt && select?.value === 'light dark') {
+        const opt = document.querySelector('label.color-scheme select option[value="light dark"]');
+        if (opt && (localStorage.getItem('colorScheme') || 'light dark') === 'light dark') {
           opt.textContent = `Automatic${e.matches ? ' (Dark)' : ' (Light)'}`;
         }
       });
     }
-  })();
-
-const saved = localStorage.getItem('colorScheme');
-applyScheme(saved || 'light dark');
-
-// Save on change
-select?.addEventListener('input', (e) => {
-  const value = e.target.value;
-  document.documentElement.style.setProperty('color-scheme', value);
-  localStorage.setItem('colorScheme', value);   // <— add this line
-});
-
-
-const select = document.querySelector('label.color-scheme select');
-const apply = (v) => document.documentElement.style.setProperty('color-scheme', v);
-
-apply('light dark'); // default
-select?.addEventListener('input', e => apply(e.target.value));
-
-// Sanity check the element exists
-console.log('[theme.js] switch present?', !!document.querySelector('label.color-scheme'));
-*/
+  });
 })();
