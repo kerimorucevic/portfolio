@@ -53,9 +53,9 @@ a.classList.toggle(
     a.host === location.host && a.pathname === location.pathname,
 ); 
 (() => {
-    // Show Automatic (Dark/Light) based on current OS preference
-    const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
-    const autoLabel = `Automatic${prefersDark ? ' (Dark)' : ' (Light)'}`;
+
+const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+const autoLabel = `Automatic${prefersDark ? ' (Dark)' : ' (Light)'}`;
   
     document.body.insertAdjacentHTML(
       'afterbegin',
