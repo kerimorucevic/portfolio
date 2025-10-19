@@ -37,11 +37,7 @@ a.textContent = title;
 nav.append(a);
 
 
-const BASE_PATH = (location.hostname === "localhost" || location.hostname === "127.0.0.1")
-  ? "/"                  // Local server
-  : "/website/";         // GitHub Pages repo name
 
-url = !url.startsWith('http') ? BASE_PATH + url : url;
 
 if (a.host === location.host && a.pathname === location.pathname) {
     a.classList.add('current');
@@ -57,7 +53,7 @@ a.classList.toggle(
 const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
 const autoLabel = `Automatic${prefersDark ? ' (Dark)' : ' (Light)'}`;
   
-    document.body.insertAdjacentHTML(
+document.body.insertAdjacentHTML(
       'afterbegin',
       `
       <label class="color-scheme">
@@ -69,9 +65,12 @@ const autoLabel = `Automatic${prefersDark ? ' (Dark)' : ' (Light)'}`;
         </select>
       </label>
       `
-    );
+);
+select.addEventListener('input', function (event) {
+    console.log('color scheme changed to', event.target.value);
+  });
   
-    // ---- Step 4.4: Make it work (switch themes on change) ----
+ /*   // ---- Step 4.4: Make it work (switch themes on change) ----
     const select = document.querySelector('label.color-scheme select');
   
     // 1) Apply the current select value immediately so UI reflects the state
@@ -121,4 +120,5 @@ select?.addEventListener('input', e => apply(e.target.value));
 
 // Sanity check the element exists
 console.log('[theme.js] switch present?', !!document.querySelector('label.color-scheme'));
-
+*/
+})();
