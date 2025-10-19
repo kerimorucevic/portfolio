@@ -54,6 +54,7 @@ label.color-scheme {
     border: 1px solid var(--border-color);
     border-radius: 0.5rem;
   }
+
   
 label.color-scheme select {
     background: canvas;
