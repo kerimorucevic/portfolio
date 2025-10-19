@@ -108,38 +108,3 @@ a.classList.toggle(
       });
     }
   })();
-
-  document.body.insertAdjacentHTML(
-    'afterbegin',
-    `
-    <label class="color-scheme">
-      Theme:
-      <select aria-label="Color scheme">
-        <option value="light dark">${autoLabel}</option>
-        <option value="light">Light</option>
-        <option value="dark">Dark</option>
-      </select>
-    </label>
-    `
-  );
-  const select = document.querySelector('label.color-scheme select');
-
-if (select) {
-  const allowed = new Set(['light dark', 'light', 'dark']);
-
-  // Apply the current select value immediately (on load)
-  if (allowed.has(select.value)) {
-    document.documentElement.style.setProperty('color-scheme', select.value);
-  }
-
-  // Update when the user changes the dropdown
-  select.addEventListener('input', (event) => {
-    const value = event.target.value;
-    console.log('color scheme changed to', value); // sanity check in console
-    if (allowed.has(value)) {
-      document.documentElement.style.setProperty('color-scheme', value);
-    }
-  });
-} else {
-  console.warn('Theme select not found. Did you insert the Step 4.2 HTML?');
-}
