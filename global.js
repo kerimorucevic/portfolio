@@ -114,4 +114,76 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   });
+ 
+
 })();
+export async function fetchJSON(url) {
+    try {
+    const response = await fetch(url, { cache: 'no-store' });
+    if (!response.ok) {
+    throw new Error(`HTTP ${response.status} ${response.statusText}`);
+    }
+    return await response.json();
+    } catch (error) {
+    console.error('Error fetching or parsing JSON data:', error);
+    return null; // callers can guard against null
+    }
+    }
+    
+    /**
+    * Render an array of project objects into a container.
+    * Supports dynamic heading levels; validates input; graceful fallbacks.
+    */
+    export function renderProjects(projects, containerElement, headingLevel = 'h2') {
+    if (!containerElement) return; // nothing to render into
+    
+    const isValidHeading = /^(h[1-6])$/i.test(String(headingLevel));
+    const H = isValidHeading ? String(headingLevel).toLowerCase() : 'h2';
+    
+    containerElement.innerHTML = '';
+    
+    if (!Array.isArray(projects) || projects.length === 0) {
+    containerElement.innerHTML = '<p class="empty">No projects to show yet.</p>';
+    return;
+    }
+    
+    const frag = document.createDocumentFragment();
+    
+    for (const p of projects) {
+    const article = document.createElement('article');
+    const title = p?.title ?? 'Untitled project';
+    const image = p?.image ?? 'images/empty.svg';
+    const description = p?.description ?? '';
+    const year = p?.year ?? '';
+    
+    article.innerHTML = `
+    <${H}>${title}</${H}>
+    <img src="${image}" alt="${title}">
+    <p>${description}</p>
+    ${year ? `<p class="project-meta"><small>${year}</small></p>` : ''}
+    `;
+    
+    frag.appendChild(article);
+    }
+    
+    containerElement.appendChild(frag);
+    }
+    
+    /** Update the count in an element like <h1 class="projects-title"> */
+    export function updateCount({ projects, selector = '.projects-title' } = {}) {
+    const el = document.querySelector(selector);
+    if (!el) return;
+    const n = Array.isArray(projects) ? projects.length : 0;
+    el.textContent = `${n} Projects`;
+    }
+    
+    /** Fetch public GitHub profile JSON for a username */
+    export async function fetchGitHubData(username) {
+    if (!username) throw new Error('GitHub username required');
+    return fetchJSON(`https://api.github.com/users/${encodeURIComponent(username)}`);
+    }
+export async function fetchGitHubData(username) {
+    // return statement here
+    return fetchJSON(`https://api.github.com/users/${username}`);
+
+  }
