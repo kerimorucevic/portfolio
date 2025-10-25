@@ -109,6 +109,13 @@ form button{
     background-color: #f9f9f9;
     visibility: visible;
 }
+#profile-stats dl.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem 2rem;
+    }
+    #profile-stats dt { color: #6b7280; letter-spacing: .04em; text-transform: uppercase; }
+    #profile-stats dd { font-size: clamp(1.75rem, 3.5vw, 3.25rem); margin: 0; }
 body {
    
     font: 100%/1.5 system-ui;
