@@ -93,14 +93,18 @@ document.addEventListener('DOMContentLoaded', () => {
   
     // 2) Initialize from storage (site-wide) or default to Automatic
     const saved = localStorage.getItem('colorScheme') || 'light dark';
-    apply(saved);
-  
+    applyScheme(saved);
+    select.value = saved;
     // 3) Respond to user changes & persist
     select?.addEventListener('input', (e) => {
       const scheme = e.target.value; // "light dark" | "light" | "dark"
-      apply(scheme);
+      applyScheme(scheme);
       localStorage.setItem('colorScheme', scheme);
     });
+    function applyScheme(colorScheme) {
+        // Set CSS property on <html> (root)
+        document.documentElement.style.setProperty('color-scheme', colorScheme);
+      }
   
     // 4) Keep the "Automatic" label accurate if OS theme flips (nice-to-have)
     if (window.matchMedia) {
