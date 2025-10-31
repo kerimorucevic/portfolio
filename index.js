@@ -5,7 +5,6 @@ const projectsContainer = document.querySelector('.projects');
 <div class="projects"></div>
 renderProjects(latestProjects, projectsContainer, 'h2');*/
 
-import { fetchJSON, renderProjects, fetchGitHubData } from './global.js';
 
 async function init() {
 // Latest 3 projects
