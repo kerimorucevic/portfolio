@@ -3,8 +3,8 @@ console.log('IT’S ALIVE!');
 function $$(selector, context = document) {
   return Array.from(context.querySelectorAll(selector));
 }
-const $$ = (selector) => Array.from(document.querySelectorAll(selector));
-let navLinks = $$("nav a");
+/*const $$ = (selector) => Array.from(document.querySelectorAll(selector));*/
+/*let navLinks = $$("nav a");*/
 
 let currentLink = navLinks.find(
   (a) => a.host === location.host && a.pathname === location.pathname
@@ -33,7 +33,6 @@ a.href = url;
 a.textContent = title;
 nav.append(a);
 
-nav.insertAdjacentHTML('beforeend', `<a href="${url}">${title}</a>`);
 
 
 
@@ -80,7 +79,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       return select;
     };
-  
+    select.addEventListener('input', function (event) {
+        console.log('color scheme changed to', event.target.value);
+      });
     const selects = () => Array.from(document.querySelectorAll('label.color-scheme select'));
     const apply = (scheme) => {
       document.documentElement.style.setProperty('color-scheme', scheme);
