@@ -171,21 +171,22 @@ export async function fetchJSON(url) {
     containerElement.appendChild(frag);
     }
     
-    /** Update the count in an element like <h1 class="projects-title"> */
-    export function updateCount({ projects, selector = '.projects-title' } = {}) {
+    /*
+    * Update the count in an element like <h1 class="projects-title"> */
+    /*export function updateCount({ projects, selector = '.projects-title' } = {}) {
     const el = document.querySelector(selector);
     if (!el) return;
     const n = Array.isArray(projects) ? projects.length : 0;
     el.textContent = `${n} Projects`;
     }
     
-    /** Fetch public GitHub profile JSON for a username */
+    /** Fetch public GitHub profile JSON for a username 
     export async function fetchGitHubData(username) {
     if (!username) throw new Error('GitHub username required');
     return fetchJSON(`https://api.github.com/users/${encodeURIComponent(username)}`);
     }
-export async function fetchGitHubData(username) {
+    export async function fetchGitHubData(username) {
     // return statement here
     return fetchJSON(`https://api.github.com/users/${username}`);
-
-  }
+    
+    }*/
