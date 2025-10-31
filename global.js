@@ -6,12 +6,10 @@ function $$(selector, context = document) {
 const $$ = (selector) => Array.from(document.querySelectorAll(selector));
 let navLinks = $$("nav a");
 
-// Step 2.2: Find the link that matches the current page
 let currentLink = navLinks.find(
   (a) => a.host === location.host && a.pathname === location.pathname
 );
 
-// Step 2.3: Add the 'current' class if found
 currentLink?.classList.add("current");
 
 let pages = [
@@ -28,13 +26,14 @@ document.body.prepend(nav);
 for (let p of pages) {
     let url = p.url;
     let title = p.title;
-    // next step: create link and add it to nav
   }
 
 let a = document.createElement('a');
 a.href = url;
 a.textContent = title;
 nav.append(a);
+
+nav.insertAdjacentHTML('beforeend', `<a href="${url}">${title}</a>`);
 
 
 
