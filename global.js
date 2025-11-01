@@ -34,14 +34,15 @@ for (let p of pages) {
     : "/website/"; 
 
     url = !url.startsWith('http') ? BASE_PATH + url : url; 
+    a.classList.toggle(
+        'current',
+        a.host === location.host && a.pathname === location.pathname,
+      );
 }
 
 
 
-a.classList.toggle(
-    'current',
-    a.host === location.host && a.pathname === location.pathname,
-  );
+
 
 document.body.insertAdjacentHTML(
     'afterbegin',
