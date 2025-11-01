@@ -28,14 +28,15 @@ for (let p of pages) {
     let a = document.createElement('a');
     a.href = url;
     a.textContent = title;
-    nav.append(a);  
+    nav.append(a); 
+    const BASE_PATH = (location.hostname === "localhost" || location.hostname === "127.0.0.1")
+    ? "/"                  // Local server
+    : "/website/"; 
+
+    url = !url.startsWith('http') ? BASE_PATH + url : url; 
 }
 
-const BASE_PATH = (location.hostname === "localhost" || location.hostname === "127.0.0.1")
-? "/"                  // Local server
-: "/website/"; 
 
-url = !url.startsWith('http') ? BASE_PATH + url : url;
 
 a.classList.toggle(
     'current',
