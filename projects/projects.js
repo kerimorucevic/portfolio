@@ -1,4 +1,4 @@
-import { fetchJSON, renderProjects } from '../global.js';
+/*import { fetchJSON, renderProjects } from '../global.js';
 async function init() {
     const projectsContainer = document.querySelector('.projects');
     if (!projectsContainer) return;
@@ -13,5 +13,5 @@ async function init() {
     
 }
 /*const projectsContainer = document.querySelector('.projects'); */
-init();
+/*init();
 /*renderProjects(projects, projectsContainer, 'h2');*/
