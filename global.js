@@ -62,6 +62,15 @@ const select = document.querySelector('.color-scheme select');
 select.addEventListener('input', function (event) {
     console.log('color scheme changed to', event.target.value);
     document.documentElement.style.setProperty('color-scheme', event.target.value);
-
+    if (event.target.value === 'dark') {
+        document.body.style.backgroundColor = 'black';
+        document.body.style.color = 'white';
+      } else if (event.target.value === 'light') {
+        document.body.style.backgroundColor = 'white';
+        document.body.style.color = 'black';
+      } else {
+        document.body.style.backgroundColor = '';
+        document.body.style.color = '';
+      }
 
   });
