@@ -74,3 +74,28 @@ select.addEventListener('input', function (event) {
       }
 
   });
+
+
+  export function renderProjects(project, containerElement) {
+    containerElement.innerHTML = '';
+    for (const p of project) {
+        const article = document.createElement('article');
+    
+        // graceful fallbacks for missing fields
+        const title = p?.title ?? 'Untitled project';
+        const image = p?.image ?? 'images/empty.svg';
+        const description = p?.description ?? '';
+    
+        article.innerHTML = `
+          <h3>${title}</h3>
+          <img src="${image}" alt="${title}">
+          <p>${description}</p>
+        `;
+    
+        containerElement.appendChild(article);
+      }
+}
+export async function fetchGitHubData(username) {
+    return fetchJSON(`https://api.github.com/users/${username}`);
+
+  }

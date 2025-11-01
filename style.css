@@ -6,7 +6,6 @@
 
 html {
     accent-color: var(--color-accent);
-    color-scheme: light dark;
     background: canvas;
     color: canvastext;
 }
