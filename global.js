@@ -105,7 +105,10 @@ export function renderProjects(project, containerElement) {
         article.innerHTML = `
           <h3>${title}</h3>
           <img src="${image}" alt="${title}">
+          <div>
           <p>${description}</p>
+          ${year ? `<p class="project-meta"><small>${year}</small></p>` : ''}
+          </div>
         `;
     
         containerElement.appendChild(article);
