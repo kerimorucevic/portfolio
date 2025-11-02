@@ -100,6 +100,73 @@ form button{
     
 
 }
+#projects-pie-plot {
+    max-width: 20em;
+    margin-block: 2em;
+    overflow: visible;
+  }
+  
+  /* --- Step 2.2: Legend layout & swatch --- */
+.legend {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9em, 1fr));
+    gap: 0.75rem;              /* grid gap */
+    padding: 0.75rem;
+    margin: 0;
+    list-style: none;
+    border: 1px solid oklch(50% 10% 200 / 40%);
+    border-radius: 0.5rem;
+  }
+  
+.legend li {
+    display: flex;             /* align swatch + text */
+    align-items: center;
+    gap: 0.5rem;               /* smaller than grid gap (Proximity) */
+    --color: #888;             /* default; overridden inline via style attr */
+  }
+  
+.legend .swatch {
+    display: inline-block;
+    width: 0.9rem;
+    aspect-ratio: 1 / 1;
+    border-radius: 0.25rem;
+    background: var(--color);
+  }
+  
+  /* --- Step 2.3: Place chart & legend side-by-side --- */
+.projects-viz {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+.projects-viz .legend { flex: 1; }
+  
+  /* --- Step 5.1: Hover behavior (fade non-hovered wedges) --- */
+#projects-pie-plot:has(path:hover) path:not(:hover) {
+    opacity: 0.5;
+  }
+  
+  /* Smooth transitions and pointer cursor (Step 5.1) */
+#projects-pie-plot path {
+    transition: 300ms;
+    cursor: pointer;
+  }
+  
+  /* --- Step 5.2: Selected wedge/legend override color --- */
+.selected {
+    --color: oklch(60% 45% 0) !important; /* distinct highlight color */
+  }
+.selected:is(path) {
+    fill: var(--color);
+  }
+  
+  /* --- Step 0.1: Optional typography for the year --- */
+.project-meta {
+    color: oklch(55% 2% 250);
+    font-family: Baskerville, Georgia, 'Times New Roman', Times, serif;
+    font-variant-numeric: oldstyle-nums;
+    margin-top: 0.25rem;
+  }
 .projects article {
     display: block;
     gap: 1em;
