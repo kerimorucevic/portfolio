@@ -11,8 +11,11 @@ let currentLink = navLinks.find(
 
 currentLink?.classList.add('current');
 let pages = [
-    { url: '', title: 'Home' },
+    { url: 'portfolio/index.html', title: 'Home' },
     { url: 'projects/', title: 'Projects' },
+    {url: 'contact/', title: 'Contacts' },
+    {url: 'https://github.com/kerimorucevic', title: 'GitHub' },
+    {url: 'portfolio/CV.html', title: 'CV/Resume' },
     // add the rest of your pages here
   ];
 
