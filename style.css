@@ -122,6 +122,7 @@ body {
     display: block;
     margin: 8px;
     margin-inline: max(1em, (100% - 100ch) / 2);
+    background-color: oklch(from var(--color-accent) 95% 5% h); 
 
 
 }
