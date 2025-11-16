@@ -69,6 +69,11 @@ form{
 
 
 }
+.bikewatching-img{
+    max-width: 40%;
+    height: auto;
+    
+}
 form label{
     display: grid;
     margin-top: 1em;
